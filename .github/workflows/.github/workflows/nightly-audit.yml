@@ -1,0 +1,17 @@
+name: Nightly Dependency & Security Audit
+
+on:
+  schedule:
+    - cron: "0 2 * * *" # Runs every night at 2 AM UTC
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run: npm install
+      - run: npm audit --audit-level=high
